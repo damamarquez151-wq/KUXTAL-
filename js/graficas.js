@@ -83,7 +83,7 @@ function dibujarGrafica(idIndicador) {
     },
     options: {
       responsive: true,
-      scales: { y: { suggestedMin: ind.amarillo[0] - margen, suggestedMax: ind.amarillo[1] + margen } },
+            scales: { y: { suggestedMin: bajo - margen, suggestedMax: alto + margen } },
       plugins: { franjas: { indicador: ind } }
     },
     plugins: [franjas]

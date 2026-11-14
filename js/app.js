@@ -66,7 +66,7 @@ const LIMITES = {
 // Qué tripulante está elegido en la lista de Carlos (si no hay lista, "Crew A")
 function tripulanteActual() {
   const selector = document.getElementById("crew-select");
-  return selector && selector.value ? selector.value : "Crew A";
+    return selector && selector.value ? selector.value : "A";
 }
 function leerFormulario() {
     const chequeo = { tripulante: tripulanteActual(), fecha: new Date().toISOString().slice(0, 10) };
