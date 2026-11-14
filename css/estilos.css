@@ -278,3 +278,7 @@ button:focus-visible, select:focus-visible, input:focus-visible, .zones-list li:
 #resultados span[style*="#2e7d32"] { color: #86efac !important; }
 #resultados span[style*="#f9a825"] { color: #fde047 !important; }
 #resultados span[style*="#c62828"], #resultados p[style*="#c62828"] { color: #fca5a5 !important; }
+/* ===== Links on the dark background (NASA HRP risks) ===== */
+#resultados a, .detail-sheet a { color: var(--cyan); text-decoration: underline; }
+#resultados a:hover, .detail-sheet a:hover { color: #e0f2fe; }
+#resultados small { color: var(--muted); }
