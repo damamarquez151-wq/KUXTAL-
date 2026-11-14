@@ -43,7 +43,10 @@ function evaluarChequeo(chequeo, indicadores) {
       sistema: ind.sistema,
       color: color,
       recomendacion: recomendacion,
-      fuente: ind.fuente
+      fuente: ind.fuente,
+      por_que: ind.por_que,          // why it matters (NASA HRP)
+      riesgo_nasa: ind.riesgo_nasa,  // NASA HRP risk name
+      url_nasa: ind.url_nasa         // link to the NASA HRP risk page
     });
   }
   return resultados;

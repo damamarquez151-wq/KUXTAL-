@@ -5,11 +5,22 @@
     "unidad": "mmHg",
     "sistema": "corazon",
     "categoria": "cardiovascular",
-    "verde": [90, 120],
-    "amarillo": [90, 139],
+    "verde": [
+      90,
+      120
+    ],
+    "amarillo": [
+      90,
+      139
+    ],
     "rojo": "<90 or >=140",
     "recomendacion_amarillo": "Rest for 10 minutes and re-measure. Drink water.",
     "recomendacion_rojo": "Notify the Flight Medical Officer immediately.",
+    "riesgo_nasa": "Risk of Cardiovascular Adaptations",
+    "url_nasa": "https://www.nasa.gov/reference/risk-of-cardiovascular-adaptations/",
+    "peligro_nasa": "Gravity Fields",
+    "url_peligro": "https://www.nasa.gov/hrp/hazard-gravity-fields/",
+    "por_que": "Without gravity, blood shifts and the heart and blood vessels work differently. NASA studies whether this raises the chance of cardiovascular events.",
     "fuente": "NASA-STD-3001 Vol. 1; NASA HRP — The Human Body in Space"
   },
   {
@@ -18,11 +29,22 @@
     "unidad": "mmHg",
     "sistema": "corazon",
     "categoria": "cardiovascular",
-    "verde": [60, 80],
-    "amarillo": [60, 89],
+    "verde": [
+      60,
+      80
+    ],
+    "amarillo": [
+      60,
+      89
+    ],
     "rojo": "<60 or >=90",
     "recomendacion_amarillo": "Rest for 10 minutes and re-measure. Drink water.",
     "recomendacion_rojo": "Notify the Flight Medical Officer immediately.",
+    "riesgo_nasa": "Risk of Cardiovascular Adaptations",
+    "url_nasa": "https://www.nasa.gov/reference/risk-of-cardiovascular-adaptations/",
+    "peligro_nasa": "Gravity Fields",
+    "url_peligro": "https://www.nasa.gov/hrp/hazard-gravity-fields/",
+    "por_que": "Without gravity, blood shifts and the heart and blood vessels work differently. NASA studies whether this raises the chance of cardiovascular events.",
     "fuente": "NASA-STD-3001 Vol. 1; NASA HRP — The Human Body in Space"
   },
   {
@@ -31,11 +53,22 @@
     "unidad": "bpm",
     "sistema": "corazon",
     "categoria": "cardiovascular",
-    "verde": [60, 100],
-    "amarillo": [50, 120],
+    "verde": [
+      60,
+      100
+    ],
+    "amarillo": [
+      50,
+      120
+    ],
     "rojo": "<50 or >120",
     "recomendacion_amarillo": "Sit down, relax, and check again in 15 minutes.",
     "recomendacion_rojo": "Notify the Flight Medical Officer. Assess additional symptoms.",
+    "riesgo_nasa": "Risk of Cardiovascular Adaptations",
+    "url_nasa": "https://www.nasa.gov/reference/risk-of-cardiovascular-adaptations/",
+    "peligro_nasa": "Gravity Fields",
+    "url_peligro": "https://www.nasa.gov/hrp/hazard-gravity-fields/",
+    "por_que": "Without gravity, blood shifts and the heart and blood vessels work differently. NASA studies whether this raises the chance of cardiovascular events.",
     "fuente": "NASA-STD-3001 Vol. 1; NASA HRP — The Human Body in Space"
   },
   {
@@ -44,11 +77,22 @@
     "unidad": "°C",
     "sistema": "inmune",
     "categoria": "regulation",
-    "verde": [36.1, 37.2],
-    "amarillo": [35.0, 38.0],
+    "verde": [
+      36.1,
+      37.2
+    ],
+    "amarillo": [
+      35.0,
+      38.0
+    ],
     "rojo": "<35.0 or >38.0",
     "recomendacion_amarillo": "Check cabin environment, hydrate, and recheck in 30 minutes.",
     "recomendacion_rojo": "Contact Flight Surgeon on Earth. May indicate infection or environmental issue.",
+    "riesgo_nasa": "Risk of Altered Immune System Responses",
+    "url_nasa": "https://www.nasa.gov/reference/risk-of-altered-immune-system-responses/",
+    "peligro_nasa": "Hostile/Closed Environments",
+    "url_peligro": "https://www.nasa.gov/hrp/hazard-hostile-closed-environments/",
+    "por_que": "Spaceflight stress can weaken immune defenses and wake up dormant viruses, so a fever can be an early sign of infection inside a closed cabin.",
     "fuente": "NASA-STD-3001 Vol. 1; NASA HRP — The Human Body in Space"
   },
   {
@@ -57,11 +101,22 @@
     "unidad": "mg/dL",
     "sistema": "nutricion",
     "categoria": "metabolism",
-    "verde": [70, 110],
-    "amarillo": [70, 140],
+    "verde": [
+      70,
+      110
+    ],
+    "amarillo": [
+      70,
+      140
+    ],
     "rojo": "<70 or >140",
     "recomendacion_amarillo": "Check hydration and nutrition. Re-measure in 1 hour.",
     "recomendacion_rojo": "Eat something if low. Notify Earth if high persists.",
+    "riesgo_nasa": "Risk of Inadequate Food and Nutrition",
+    "url_nasa": "https://www.nasa.gov/reference/risk-of-inadequate-food-and-nutrition/",
+    "peligro_nasa": "Distance from Earth",
+    "url_peligro": "https://www.nasa.gov/hrp/hazard-distance-from-earth/",
+    "por_que": "On long missions crews depend on stored food. Blood sugar helps show whether an astronaut is eating enough and getting balanced nutrition.",
     "fuente": "NASA-STD-3001 Vol. 1; NASA HRP — The Human Body in Space"
   },
   {
@@ -70,11 +125,22 @@
     "unidad": "hours",
     "sistema": "sueno",
     "categoria": "circadian_rhythm",
-    "verde": [7, 9],
-    "amarillo": [5, 12],
+    "verde": [
+      7,
+      9
+    ],
+    "amarillo": [
+      5,
+      12
+    ],
     "rojo": "<5 or >12",
     "recomendacion_amarillo": "Prioritize rest. Reduce noise and light before sleep.",
     "recomendacion_rojo": "Adjust schedule immediately. Request psychological support if needed.",
+    "riesgo_nasa": "Risk of Inadequate Sleep and Irregular Schedules",
+    "url_nasa": "https://www.nasa.gov/reference/risk-from-inadequate-sleep-and-irregular-schedules/",
+    "peligro_nasa": "Isolation and Confinement",
+    "url_peligro": "https://www.nasa.gov/hrp/hazard-isolation-and-confinement/",
+    "por_que": "Crews face chronic sleep loss, heavy workloads and disrupted body clocks, which can reduce performance and health.",
     "fuente": "NASA-STD-3001 Vol. 1; NASA HRP — The Human Body in Space"
   },
   {
@@ -83,11 +149,22 @@
     "unidad": "/10",
     "sistema": "mente",
     "categoria": "mental_health",
-    "verde": [7, 10],
-    "amarillo": [5, 6],
+    "verde": [
+      7,
+      10
+    ],
+    "amarillo": [
+      5,
+      6
+    ],
     "rojo": "0 to 4",
     "recomendacion_amarillo": "Talk to a crewmate, take a break, write in your journal.",
     "recomendacion_rojo": "Contact psychological support on Earth immediately.",
+    "riesgo_nasa": "Risk of Behavioral Changes and Psychiatric Disorders",
+    "url_nasa": "https://www.nasa.gov/reference/risk-of-behavioral-conditions-and-psychiatric-disorders/",
+    "peligro_nasa": "Isolation and Confinement",
+    "url_peligro": "https://www.nasa.gov/hrp/hazard-isolation-and-confinement/",
+    "por_que": "Isolation, radiation and distance from Earth can affect mental health. Tracking mood daily helps spot problems early.",
     "fuente": "NASA-STD-3001 Vol. 1; NASA HRP — The Human Body in Space"
   }
 ]
