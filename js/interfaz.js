@@ -251,7 +251,9 @@ function pintarRadiacion(resultado) {
 // Pide los datos a radiation.js (de Jesús) y los pinta
 function cargarRadiacion() {
   if (typeof Radiation === "undefined") return;   // por si falta el archivo de Jesús
-  Radiation.get().then(pintarRadiacion);
+  // Modo demo de Jesús: si la dirección termina en ?demo=storm, se fuerza la tormenta simulada
+  const modoDemo = new URLSearchParams(window.location.search).get("demo") === "storm";
+  Radiation.load({ forceSimulated: modoDemo }).then(pintarRadiacion);   // su caja y mi letrero, iguales
 }
 
 // ===================== AMBIENTE DE MISIÓN (datos de Jesús, environment.js) =====================
