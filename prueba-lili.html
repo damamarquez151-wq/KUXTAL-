@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Prueba semaforo - Lili</title>
+</head>
+<body>
+  <h1>Prueba del semaforo</h1>
+  <p>Presiona F12 y abre la pestaña Console para ver los resultados.</p>
+
+  <script src="js/reglas.js"></script>
+  <script>
+    // Indicadores de PRUEBA (temporales; los reales los pone Jaret en data/indicadores.json)
+    const indicadoresPrueba = [
+      { id: "frecuencia_cardiaca", nombre: "Heart rate", unidad: "bpm", sistema: "corazon",
+        verde: [60, 100], amarillo: [50, 120],
+        recomendacion_amarillo: "Rest 10 minutes and measure again.",
+        recomendacion_rojo: "Notify the crew medical officer." },
+      { id: "sueno", nombre: "Sleep", unidad: "h", sistema: "sueno",
+        verde: [7, 12], amarillo: [5, 6.99],
+        recomendacion_amarillo: "Keep a regular sleep schedule tonight.",
+        recomendacion_rojo: "Reduce workload and rest." },
+      { id: "animo", nombre: "Mood", unidad: "1-5", sistema: "mente",
+        verde: [4, 5], amarillo: [3, 3],
+        recomendacion_amarillo: "Take a break and talk with your crew.",
+        recomendacion_rojo: "Schedule a talk with the psychological support team." }
+    ];
+
+    // Chequeo de PRUEBA (día 4 de la simulación)
+    const chequeoPrueba = { frecuencia_cardiaca: 98, sueno: 4.5, animo: 2 };
+
+    const resultados = evaluarChequeo(chequeoPrueba, indicadoresPrueba);
+    console.table(resultados);
+    console.log("Por sistema:", estadoPorSistema(resultados));
+    console.log("Accion:", nivelDeAccion(resultados));
+  </script>
+</body>
+</html>
