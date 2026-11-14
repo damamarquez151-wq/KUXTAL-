@@ -23,7 +23,7 @@ function historial(tripulante) {
     .sort((a, b) => a.fecha.localeCompare(b.fecha));
 }
 
-// Dibuja las franjas verde, amarilla y roja detrás de la línea
+// Dibuja las franjas verde, amarilla y roja detrás de la línea (sin encimarse)
 const franjas = {
   id: "franjas",
   beforeDatasetsDraw(chart, args, opciones) {
@@ -40,14 +40,21 @@ const franjas = {
       ctx.fillRect(chartArea.left, arriba, chartArea.right - chartArea.left, abajo - arriba);
     }
 
+    const bajo = Math.min(ind.amarillo[0], ind.verde[0]);
+    const alto = Math.max(ind.amarillo[1], ind.verde[1]);
+    const ROJO = "rgba(198, 40, 40, 0.25)";
+    const AMARILLO = "rgba(249, 168, 37, 0.40)";
+    const VERDE = "rgba(46, 125, 50, 0.35)";
+
     ctx.save();
-        banda(y.min, y.max, "rgba(198, 40, 40, 0.22)");                        // rojo (todo el fondo)
-    banda(ind.amarillo[0], ind.verde[0], "rgba(249, 168, 37, 0.40)");      // amarillo de abajo
-    banda(ind.verde[1], ind.amarillo[1], "rgba(249, 168, 37, 0.40)");      // amarillo de arriba
-    banda(ind.verde[0], ind.verde[1], "rgba(46, 125, 50, 0.35)");          // verde
+    banda(y.min, bajo, ROJO);                    // rojo de abajo
+    banda(alto, y.max, ROJO);                    // rojo de arriba
+    banda(bajo, ind.verde[0], AMARILLO);         // amarillo de abajo
+    banda(ind.verde[1], alto, AMARILLO);         // amarillo de arriba
+    banda(ind.verde[0], ind.verde[1], VERDE);    // verde
     ctx.restore();
   }
-};
+};  
 
 function dibujarGrafica(idIndicador) {
   const lienzo = document.getElementById("grafica-tendencia");
@@ -57,7 +64,9 @@ function dibujarGrafica(idIndicador) {
   if (!ind) return;
 
   const datos = historial(tripulanteActual()).filter(c => c[idIndicador] !== undefined);
-  const margen = (ind.amarillo[1] - ind.amarillo[0]) * 0.25;
+    const bajo = Math.min(ind.amarillo[0], ind.verde[0]);
+  const alto = Math.max(ind.amarillo[1], ind.verde[1]);
+  const margen = (alto - bajo) * 0.25;
 
   if (grafica) grafica.destroy();
   grafica = new Chart(lienzo, {

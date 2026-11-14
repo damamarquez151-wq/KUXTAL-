@@ -8,15 +8,14 @@ const COLORES = { verde: "#2e7d32", amarillo: "#f9a825", rojo: "#c62828" };
 const ETIQUETAS = { verde: "GREEN", amarillo: "YELLOW", rojo: "RED" };
 const CLAVE_GUARDADO = "kuxtal_chequeos";
 
-// TEMPORAL: solo se usa mientras Jaret no suba data/indicadores.json
-// Rangos ilustrativos; los reales los documenta Jaret con fuentes NASA
+// TEMPORAL: rangos de la tabla del Avance (Parte 6), hasta que Jaret suba data/indicadores.json
 const INDICADORES_RESPALDO = [
   { id: "presion_sistolica", nombre: "Systolic blood pressure", unidad: "mmHg", sistema: "corazon",
-    verde: [90, 119], amarillo: [80, 139],
+    verde: [90, 120], amarillo: [90, 139],
     recomendacion_amarillo: "Rest, reduce salt and measure again tomorrow.",
     recomendacion_rojo: "Notify the crew medical officer." },
   { id: "presion_diastolica", nombre: "Diastolic blood pressure", unidad: "mmHg", sistema: "corazon",
-    verde: [60, 79], amarillo: [50, 89],
+    verde: [60, 80], amarillo: [60, 89],
     recomendacion_amarillo: "Rest, reduce salt and measure again tomorrow.",
     recomendacion_rojo: "Notify the crew medical officer." },
   { id: "frecuencia_cardiaca", nombre: "Heart rate", unidad: "bpm", sistema: "corazon",
@@ -24,19 +23,19 @@ const INDICADORES_RESPALDO = [
     recomendacion_amarillo: "Rest 10 minutes and measure again.",
     recomendacion_rojo: "Notify the crew medical officer." },
   { id: "temperatura", nombre: "Body temperature", unidad: "°C", sistema: "inmune",
-    verde: [36.1, 37.2], amarillo: [35.5, 37.9],
+    verde: [36.1, 37.2], amarillo: [35.0, 38.0],
     recomendacion_amarillo: "Hydrate and measure again in 2 hours.",
-    recomendacion_rojo: "Possible fever: notify the crew medical officer." },
+    recomendacion_rojo: "Possible fever or hypothermia: notify the crew medical officer." },
   { id: "glucosa", nombre: "Blood sugar", unidad: "mg/dL", sistema: "nutricion",
-    verde: [70, 99], amarillo: [60, 125],
+    verde: [70, 110], amarillo: [70, 140],
     recomendacion_amarillo: "Review your last meal and measure again before eating.",
     recomendacion_rojo: "Notify the crew medical officer." },
   { id: "sueno", nombre: "Sleep", unidad: "h", sistema: "sueno",
-    verde: [7, 12], amarillo: [5, 6.99],
+    verde: [7, 9], amarillo: [5, 12],
     recomendacion_amarillo: "Keep a regular sleep schedule tonight.",
     recomendacion_rojo: "Reduce workload and rest." },
-  { id: "animo", nombre: "Mood", unidad: "1-5", sistema: "mente",
-    verde: [4, 5], amarillo: [3, 3],
+  { id: "animo", nombre: "Mood", unidad: "/5", sistema: "mente",
+    verde: [4, 5], amarillo: [2, 3],
     recomendacion_amarillo: "Take a break and talk with your crew.",
     recomendacion_rojo: "Schedule a talk with the psychological support team." }
 ];
