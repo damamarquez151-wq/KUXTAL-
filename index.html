@@ -6,8 +6,9 @@
   <title>KUXTAL — Health Monitoring</title>
   <meta name="description" content="KUXTAL: daily self-check health monitoring for astronauts on long missions. NASA Space Apps 2026 — Carmen City. Simulated data." />
   <link rel="stylesheet" href="css/estilos.css" />
-  <!-- Chart.js: local copy first (works offline, like on a spacecraft); CDN only as a fallback -->
-   <script src="js/chart.umd.js"></script>
+   <!-- Chart.js: copia local (funciona sin internet, como en una nave) -->
+  <script src="js/chart.umd.js"></script>
+</head>
 <body>
   <div class="space-backdrop" aria-hidden="true">
     <div class="earth-glow"></div>
@@ -229,7 +230,7 @@
           <button type="button" class="vital-tile status-green" data-zone="head">
             <span class="tile-head"><span>Mood State</span>
               <svg viewBox="0 0 56 16" class="mini-wave" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2" points="0,6 18,6 36,7 56,6"/></svg></span>
-            <span class="tile-val"><strong id="v-mood">5/5</strong> <small>score</small></span>
+                       <span class="tile-val"><strong id="v-mood">8/10</strong> <small>score</small></span>
           </button>
         </div>
       </div>
@@ -275,14 +276,20 @@
         <label>Body Temp (°C)<input type="number" id="temperatura" inputmode="decimal" step="any" min="30" max="45" value="36.6" /></label>
         <label>Blood Glucose (mg/dL)<input type="number" id="glucosa" inputmode="numeric" step="any" min="20" max="600" value="92" /></label>
         <label>Sleep Hours (hrs)<input type="number" id="sueno" inputmode="decimal" step="any" min="0" max="24" value="8.0" /></label>
-        <label class="full">Mood Score (1–5, optional)
+               <label class="full">Mood Score (0–10, optional)
           <select id="animo">
             <option value="" selected>--</option>
-            <option value="5">5 — Optimal / Motivated</option>
-            <option value="4">4 — Stable</option>
-            <option value="3">3 — Mild Fatigue / Stress</option>
-            <option value="2">2 — Fatigue / Stress</option>
-            <option value="1">1 — Anxiety / Exhaustion</option>
+            <option value="10">10 — Very positive</option>
+            <option value="9">9 — Very positive</option>
+            <option value="8">8 — Positive</option>
+            <option value="7">7 — Positive</option>
+            <option value="6">6 — Neutral</option>
+            <option value="5">5 — Neutral</option>
+            <option value="4">4 — Negative</option>
+            <option value="3">3 — Negative</option>
+            <option value="2">2 — Very negative</option>
+            <option value="1">1 — Very negative</option>
+            <option value="0">0 — Very negative</option>
           </select>
         </label>
         <label class="full" id="donki-override-wrap">Space weather (simulation only — replaced by live NASA DONKI data when available)
