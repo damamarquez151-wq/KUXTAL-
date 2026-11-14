@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 580" width="400" height="580">
+  <!-- KUXTAL: silueta humana original, hecha para este proyecto (licencia MIT). -->
+  <!-- Mide 400 x 580 para alinearse con los puntos del mapa en index.html. -->
+  <g opacity="0.9">
+    <!-- 1) contorno: las mismas formas, un poco más gruesas y en azul claro -->
+    <ellipse cx="199" cy="38" rx="24.5" ry="29.5" fill="#7dd3fc"/>
+    <line x1="199" y1="55" x2="199" y2="92" stroke="#7dd3fc" stroke-width="29" stroke-linecap="round"/>
+    <path d="M150 96 Q199 84 248 96 Q262 102 258 128 L246 160 Q240 210 240 250 Q250 275 246 298 L152 298 Q148 275 158 250 Q158 210 152 160 L140 128 Q136 102 150 96 Z" fill="#7dd3fc" stroke="#7dd3fc" stroke-width="5" stroke-linejoin="round"/>
+    <polyline points="150,108 122,222 110,312" fill="none" stroke="#7dd3fc" stroke-width="29" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="110" cy="318" r="15.5" fill="#7dd3fc"/>
+    <polyline points="248,108 276,222 288,312" fill="none" stroke="#7dd3fc" stroke-width="29" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="288" cy="318" r="15.5" fill="#7dd3fc"/>
+    <polyline points="176,292 162,421 160,540" fill="none" stroke="#7dd3fc" stroke-width="39" stroke-linecap="round" stroke-linejoin="round"/>
+    <ellipse cx="154" cy="556" rx="22.5" ry="12.5" fill="#7dd3fc"/>
+    <polyline points="222,292 236,421 238,540" fill="none" stroke="#7dd3fc" stroke-width="39" stroke-linecap="round" stroke-linejoin="round"/>
+    <ellipse cx="244" cy="556" rx="22.5" ry="12.5" fill="#7dd3fc"/>
+  </g>
+  <g>
+    <!-- 2) relleno: encima, en azul oscuro -->
+    <ellipse cx="199" cy="38" rx="22.0" ry="27.0" fill="#0d2b52"/>
+    <line x1="199" y1="55" x2="199" y2="92" stroke="#0d2b52" stroke-width="24" stroke-linecap="round"/>
+    <path d="M150 96 Q199 84 248 96 Q262 102 258 128 L246 160 Q240 210 240 250 Q250 275 246 298 L152 298 Q148 275 158 250 Q158 210 152 160 L140 128 Q136 102 150 96 Z" fill="#0d2b52" stroke="#0d2b52" stroke-width="0" stroke-linejoin="round"/>
+    <polyline points="150,108 122,222 110,312" fill="none" stroke="#0d2b52" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="110" cy="318" r="13.0" fill="#0d2b52"/>
+    <polyline points="248,108 276,222 288,312" fill="none" stroke="#0d2b52" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="288" cy="318" r="13.0" fill="#0d2b52"/>
+    <polyline points="176,292 162,421 160,540" fill="none" stroke="#0d2b52" stroke-width="34" stroke-linecap="round" stroke-linejoin="round"/>
+    <ellipse cx="154" cy="556" rx="20.0" ry="10.0" fill="#0d2b52"/>
+    <polyline points="222,292 236,421 238,540" fill="none" stroke="#0d2b52" stroke-width="34" stroke-linecap="round" stroke-linejoin="round"/>
+    <ellipse cx="244" cy="556" rx="20.0" ry="10.0" fill="#0d2b52"/>
+  </g>
+</svg>
