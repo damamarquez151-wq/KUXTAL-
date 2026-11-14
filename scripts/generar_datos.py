@@ -72,10 +72,14 @@ def color_sueno(h):
         return "amarillo"
     return "verde"
 
+# Animo en escala 0-10 (propuesta de Jaret):
+#   0-2 muy negativo, 3-4 negativo  -> rojo
+#   5-6 neutral                     -> amarillo
+#   7-8 positivo, 9-10 muy positivo -> verde
 def color_animo(a):
-    if a <= 2:
+    if a <= 4:
         return "rojo"
-    if a == 3:
+    if a <= 6:
         return "amarillo"
     return "verde"
 
@@ -101,11 +105,11 @@ def chequeo(tripulante, num_dia, sis, dia, pulso, temp, glucosa, sueno, animo):
 # ---------------------------------------------------------------
 def tripulante_a():
     return [
-        chequeo("A", 1, 115, 75, 72, 36.6, 88, 7.5, 4),
-        chequeo("A", 2, 122, 82, 78, 36.7, 92, 6.0, 3),
-        chequeo("A", 3, 128, 84, 84, 36.8, 95, 5.0, 3),
-        chequeo("A", 4, 142, 92, 98, 36.9, 97, 4.5, 2),
-        chequeo("A", 5, 124, 80, 76, 36.6, 90, 7.0, 4),
+        chequeo("A", 1, 115, 75, 72, 36.6, 88, 7.5, 8),
+        chequeo("A", 2, 122, 82, 78, 36.7, 92, 6.0, 6),
+        chequeo("A", 3, 128, 84, 84, 36.8, 95, 5.0, 5),
+        chequeo("A", 4, 142, 92, 98, 36.9, 97, 4.5, 3),
+        chequeo("A", 5, 124, 80, 76, 36.6, 90, 7.0, 7),
     ]
 
 # ---------------------------------------------------------------
@@ -124,7 +128,7 @@ def tripulante_b():
             round(random.uniform(36.3, 36.9), 1),
             random.randint(78, 95),              # glucosa
             round(random.uniform(7.0, 8.5), 1),  # sueno
-            random.choice([4, 5]),               # animo
+            random.choice([7, 8, 9]),            # animo (0-10)
         ))
     return lista
 
@@ -134,7 +138,7 @@ def tripulante_b():
 def tripulante_c():
     letra = "C"
     sueno_por_dia = [7.2, 6.5, 5.8, 5.2, 4.6]   # va empeorando
-    animo_por_dia = [4, 4, 3, 3, 2]
+    animo_por_dia = [8, 7, 6, 5, 3]     # escala 0-10
     lista = []
     for d in range(1, DIAS + 1):
         lista.append(chequeo(

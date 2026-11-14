@@ -8,7 +8,7 @@
     "temperatura": 36.6,
     "glucosa": 88,
     "sueno": 7.5,
-    "animo": 4
+    "animo": 8
   },
   {
     "tripulante": "A",
@@ -19,7 +19,7 @@
     "temperatura": 36.7,
     "glucosa": 92,
     "sueno": 6.0,
-    "animo": 3
+    "animo": 6
   },
   {
     "tripulante": "A",
@@ -30,7 +30,7 @@
     "temperatura": 36.8,
     "glucosa": 95,
     "sueno": 5.0,
-    "animo": 3
+    "animo": 5
   },
   {
     "tripulante": "A",
@@ -41,7 +41,7 @@
     "temperatura": 36.9,
     "glucosa": 97,
     "sueno": 4.5,
-    "animo": 2
+    "animo": 3
   },
   {
     "tripulante": "A",
@@ -52,7 +52,7 @@
     "temperatura": 36.6,
     "glucosa": 90,
     "sueno": 7.0,
-    "animo": 4
+    "animo": 7
   },
   {
     "tripulante": "B",
@@ -63,105 +63,105 @@
     "temperatura": 36.9,
     "glucosa": 81,
     "sueno": 8.3,
-    "animo": 5
+    "animo": 9
   },
   {
     "tripulante": "B",
     "fecha": "2026-11-11",
     "presion_sistolica": 117,
     "presion_diastolica": 76,
-    "frecuencia_cardiaca": 77,
+    "frecuencia_cardiaca": 75,
     "temperatura": 36.8,
-    "glucosa": 92,
-    "sueno": 7.4,
-    "animo": 4
+    "glucosa": 95,
+    "sueno": 8.3,
+    "animo": 8
   },
   {
     "tripulante": "B",
     "fecha": "2026-11-12",
-    "presion_sistolica": 109,
-    "presion_diastolica": 72,
-    "frecuencia_cardiaca": 65,
-    "temperatura": 36.6,
-    "glucosa": 93,
-    "sueno": 8.0,
-    "animo": 4
+    "presion_sistolica": 117,
+    "presion_diastolica": 75,
+    "frecuencia_cardiaca": 69,
+    "temperatura": 36.3,
+    "glucosa": 80,
+    "sueno": 7.2,
+    "animo": 7
   },
   {
     "tripulante": "B",
     "fecha": "2026-11-13",
-    "presion_sistolica": 114,
-    "presion_diastolica": 72,
-    "frecuencia_cardiaca": 73,
-    "temperatura": 36.9,
-    "glucosa": 89,
-    "sueno": 8.2,
-    "animo": 4
+    "presion_sistolica": 115,
+    "presion_diastolica": 68,
+    "frecuencia_cardiaca": 77,
+    "temperatura": 36.7,
+    "glucosa": 84,
+    "sueno": 7.6,
+    "animo": 8
   },
   {
     "tripulante": "B",
     "fecha": "2026-11-14",
     "presion_sistolica": 113,
-    "presion_diastolica": 69,
-    "frecuencia_cardiaca": 79,
-    "temperatura": 36.6,
-    "glucosa": 87,
-    "sueno": 7.7,
-    "animo": 5
+    "presion_diastolica": 74,
+    "frecuencia_cardiaca": 78,
+    "temperatura": 36.7,
+    "glucosa": 88,
+    "sueno": 7.1,
+    "animo": 9
   },
   {
     "tripulante": "C",
     "fecha": "2026-11-10",
+    "presion_sistolica": 116,
+    "presion_diastolica": 76,
+    "frecuencia_cardiaca": 80,
+    "temperatura": 36.5,
+    "glucosa": 89,
+    "sueno": 7.2,
+    "animo": 8
+  },
+  {
+    "tripulante": "C",
+    "fecha": "2026-11-11",
     "presion_sistolica": 112,
     "presion_diastolica": 77,
     "frecuencia_cardiaca": 77,
     "temperatura": 36.6,
     "glucosa": 82,
-    "sueno": 7.2,
-    "animo": 4
-  },
-  {
-    "tripulante": "C",
-    "fecha": "2026-11-11",
-    "presion_sistolica": 118,
-    "presion_diastolica": 79,
-    "frecuencia_cardiaca": 69,
-    "temperatura": 36.6,
-    "glucosa": 95,
     "sueno": 6.5,
-    "animo": 4
+    "animo": 7
   },
   {
     "tripulante": "C",
     "fecha": "2026-11-12",
     "presion_sistolica": 118,
-    "presion_diastolica": 76,
-    "frecuencia_cardiaca": 79,
-    "temperatura": 36.7,
+    "presion_diastolica": 79,
+    "frecuencia_cardiaca": 69,
+    "temperatura": 36.6,
     "glucosa": 95,
     "sueno": 5.8,
-    "animo": 3
+    "animo": 6
   },
   {
     "tripulante": "C",
     "fecha": "2026-11-13",
+    "presion_sistolica": 118,
+    "presion_diastolica": 76,
+    "frecuencia_cardiaca": 79,
+    "temperatura": 36.7,
+    "glucosa": 95,
+    "sueno": 5.2,
+    "animo": 5
+  },
+  {
+    "tripulante": "C",
+    "fecha": "2026-11-14",
     "presion_sistolica": 112,
     "presion_diastolica": 75,
     "frecuencia_cardiaca": 70,
     "temperatura": 36.8,
     "glucosa": 96,
-    "sueno": 5.2,
-    "animo": 3
-  },
-  {
-    "tripulante": "C",
-    "fecha": "2026-11-14",
-    "presion_sistolica": 113,
-    "presion_diastolica": 78,
-    "frecuencia_cardiaca": 81,
-    "temperatura": 36.5,
-    "glucosa": 87,
     "sueno": 4.6,
-    "animo": 2
+    "animo": 3
   }
 ]
