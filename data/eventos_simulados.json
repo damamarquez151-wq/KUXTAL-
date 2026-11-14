@@ -1,0 +1,9 @@
+[
+  {
+    "fecha": "2026-11-12",
+    "tipo": "SEP",
+    "nivel": "rojo",
+    "mensaje": "Solar storm alert: go to the shielded area",
+    "simulado": true
+  }
+]
