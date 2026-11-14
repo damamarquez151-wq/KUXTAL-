@@ -1,6 +1,5 @@
 /*
  * KUXTAL - Mission environment selector (ISS, Moon, Mars)
- * Author: Jesus (Data and NASA integration)
  *
  * Use case: "Change mission environment".
  *
@@ -20,8 +19,13 @@
  *   Source: https://spaceacademy.net.au/spacelink/commdly.htm
  *
  * How to use it in a page:
- *   <div id="environment-selector"></div>
+ *   <div id="environment-selector"></div>   (menu + info)
  *   <script src="js/environment.js"></script>
+ *
+ * If the page already has its own menu (for example #mission-env),
+ * skip #environment-selector and connect the menu with
+ * Environment.set(value). To still show the info, add:
+ *   <div id="environment-info"></div>       (info only)
  *
  * How other files can use it:
  *   Environment.current()          -> the chosen environment (object)
@@ -36,7 +40,8 @@ const Environment = (function () {
   // ------------------------------------------------------------
   // 1. Settings
   // ------------------------------------------------------------
-  const CONTAINER_ID = "environment-selector";
+  const CONTAINER_ID = "environment-selector";   // menu + info
+  const INFO_ID = "environment-info";             // info only (no menu)
   const STORAGE_KEY = "kuxtal_environment";
   const DEFAULT_ID = "moon";          // the report scenario is a lunar base
   const EVENT_NAME = "kuxtal:environment-change";
@@ -122,12 +127,25 @@ const Environment = (function () {
   // ------------------------------------------------------------
   // 5. Draw it on the page
   // ------------------------------------------------------------
+  function infoHtml(env) {
+    return '<ul style="margin:6px 0;padding-left:18px">' +
+        "<li><strong>Communication delay with Earth:</strong> " + env.delay + "</li>" +
+        "<li><strong>If a result is red:</strong> " + env.escalation + "</li>" +
+        "<li><strong>Radiation:</strong> " + env.radiation + "</li>" +
+      "</ul>";
+  }
+
   function show() {
     if (typeof document === "undefined") return;
+    const env = current();
+
+    // Info only, for pages that already have their own menu
+    const infoBox = document.getElementById(INFO_ID);
+    if (infoBox) infoBox.innerHTML = infoHtml(env);
+
     const box = document.getElementById(CONTAINER_ID);
     if (!box) return;
 
-    const env = current();
     let options = "";
     for (const e of list()) {
       const selected = e.id === env.id ? " selected" : "";
@@ -137,11 +155,7 @@ const Environment = (function () {
     box.innerHTML =
       '<label for="environment-select"><strong>Mission environment:</strong></label> ' +
       '<select id="environment-select">' + options + "</select>" +
-      '<ul style="margin:6px 0;padding-left:18px">' +
-        "<li><strong>Communication delay with Earth:</strong> " + env.delay + "</li>" +
-        "<li><strong>If a result is red:</strong> " + env.escalation + "</li>" +
-        "<li><strong>Radiation:</strong> " + env.radiation + "</li>" +
-      "</ul>";
+      infoHtml(env);
 
     document.getElementById("environment-select")
       .addEventListener("change", e => set(e.target.value));
