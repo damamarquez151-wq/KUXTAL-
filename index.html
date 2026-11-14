@@ -7,9 +7,7 @@
   <meta name="description" content="KUXTAL: daily self-check health monitoring for astronauts on long missions. NASA Space Apps 2026 — Carmen City. Simulated data." />
   <link rel="stylesheet" href="css/estilos.css" />
   <!-- Chart.js: local copy first (works offline, like on a spacecraft); CDN only as a fallback -->
-  <script src="js/chart.umd.min.js"></script>
-  <script>window.Chart || document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"><\/script>');</script>
-</head>
+   <script src="js/chart.umd.js"></script>
 <body>
   <div class="space-backdrop" aria-hidden="true">
     <div class="earth-glow"></div>
@@ -55,7 +53,11 @@
       </div>
       <label class="hud-field">
         <span class="crew-kicker">CREWMEMBER</span>
-        <select id="crew-select" class="hud-select" aria-label="Crewmember"></select>
+               <select id="crew-select" class="hud-select" aria-label="Crewmember">
+          <option value="A">Crew A</option>
+          <option value="B">Crew B</option>
+          <option value="C">Crew C</option>
+        </select>
       </label>
       <label class="hud-field">
         <span class="crew-kicker">MISSION ENVIRONMENT</span>
@@ -243,16 +245,9 @@
       <div class="sub-card chart-subcard">
         <div class="sub-header">
           <h2 class="card-heading">Trend</h2>
-          <select id="chart-metric" class="hud-select hud-select-sm" aria-label="Chart metrics">
-            <option value="cardio" selected>Heart: HR &amp; BP</option>
-            <option value="metabolic">Glucose &amp; Temp</option>
-            <option value="recovery">Sleep &amp; Mood</option>
-          </select>
+                   <select id="indicador-grafica" class="hud-select hud-select-sm" aria-label="Chart indicator"></select>
         </div>
-        <div class="chart-wrap">
-          <canvas id="trend-chart" role="img" aria-label="Trend chart of the selected indicators"></canvas>
-          <p id="chart-missing" class="chart-missing hidden">Chart.js not found. Download chart.umd.min.js into the js/ folder.</p>
-        </div>
+        <canvas id="grafica-tendencia" role="img" aria-label="Trend chart of the selected indicator"></canvas>
       </div>
     </aside>
   </main>
@@ -306,12 +301,11 @@
       <div id="resultados" aria-live="polite"></div>
     </div>
   </div>
-
-  <!-- Carlos: interface, body map, history, chart. Loads first so its listeners are ready for the other modules. -->
+  <!-- Carlos: pantalla y mapa del cuerpo -->
   <script src="js/interfaz.js"></script>
-  <!-- Team modules. A missing file only shows a 404 in the console; the page keeps working. -->
+  <!-- Lili: semáforo, formulario y gráficas -->
   <script src="js/reglas.js"></script>
-  <script src="js/radiacion.js"></script>
   <script src="js/app.js"></script>
+  <script src="js/graficas.js"></script>
 </body>
 </html>
