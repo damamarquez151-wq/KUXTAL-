@@ -282,3 +282,8 @@ button:focus-visible, select:focus-visible, input:focus-visible, .zones-list li:
 #resultados a, .detail-sheet a { color: var(--cyan); text-decoration: underline; }
 #resultados a:hover, .detail-sheet a:hover { color: #e0f2fe; }
 #resultados small { color: var(--muted); }
+/* ===== Jesus's radiation box (js/radiation.js) on the dark panel ===== */
+#radiation-alert { font-size: 0.74rem; line-height: 1.45; color: var(--text); }
+#radiation-alert > div { margin: 0 !important; }
+#radiation-alert small { color: var(--muted); opacity: 1 !important; }
+#radiation-alert a { color: var(--cyan) !important; }

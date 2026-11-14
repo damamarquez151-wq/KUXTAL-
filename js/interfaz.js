@@ -197,6 +197,7 @@ function actualizarTodo(resultados, porSistema) {
   pintarEstadoGeneral(resultados);
   pintarListaSistemas(porSistema);
   mostrarDetalle(zonaElegida);
+  document.getElementById("escalate-msg").classList.add("hidden");   // una evaluación nueva borra el aviso viejo
 }
 
 // Evalúa el último día guardado del tripulante elegido (datos de Jesús + chequeos)
@@ -253,6 +254,61 @@ function cargarRadiacion() {
   Radiation.get().then(pintarRadiacion);
 }
 
+// ===================== AMBIENTE DE MISIÓN (datos de Jesús, environment.js) =====================
+// Texto chiquito debajo de "HABITAT A", según el ambiente
+const SUBTITULO_AMBIENTE = { iss: "LOW EARTH ORBIT", moon: "LUNAR BASE", mars: "MARS TRANSIT" };
+
+// Convierte el retraso de Jesús ({ min, max } en segundos) en un texto corto
+function textoRetraso(retraso) {
+  if (retraso.max >= 60) return Math.round(retraso.min / 60) + "–" + Math.round(retraso.max / 60) + " min";
+  if (retraso.min === retraso.max) return retraso.max + " s";
+  return "< " + retraso.max + " s";
+}
+
+// Llena la lista "Mission Environment" con los ambientes de Jesús
+function llenarAmbientes() {
+  const lista = document.getElementById("mission-env");
+  lista.innerHTML = "";
+  for (const ambiente of Environment.list()) {
+    const opcion = document.createElement("option");
+    opcion.value = ambiente.id;              // "iss", "moon" o "mars"
+    opcion.textContent = ambiente.name;
+    lista.appendChild(opcion);
+  }
+  lista.value = Environment.current().id;   // el que estaba guardado
+}
+
+// Pinta el ambiente elegido en la barra de arriba
+function pintarAmbiente() {
+  const ambiente = Environment.current();
+  document.getElementById("habitat-subtitle").textContent = SUBTITULO_AMBIENTE[ambiente.id];
+  document.getElementById("comms-delay").textContent = textoRetraso(ambiente.delaySeconds);
+}
+
+// Botón rojo "ESCALATE ALERT": confirma el envío, con el retraso y qué hacer
+function escalarAlerta() {
+  const hora = new Date().toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" });
+  let texto = "Alert sent to Mission Control at " + hora + ".";
+  if (typeof Environment !== "undefined") {
+    const ambiente = Environment.current();
+    texto += " Signal delay: " + ambiente.delay + ". " + ambiente.escalation;
+  }
+  const mensaje = document.getElementById("escalate-msg");
+  mensaje.textContent = texto;
+  mensaje.classList.remove("hidden");
+}
+
+// Botón "Reset history": borra los chequeos guardados en este navegador
+function borrarHistorial() {
+  if (!confirm("Delete all saved check-ins on this device?")) return;
+  localStorage.removeItem(CLAVE_GUARDADO);   // CLAVE_GUARDADO es de Lili (app.js)
+  actualizarGrafica();                       // de Lili (graficas.js)
+  mostrarUltimoDia();
+  // Limpio el recuadro "Result" de la ventana, para que se note que se borró
+  document.getElementById("resultados").innerHTML =
+    "<p>History cleared. Showing the simulated mission data only.</p>";
+}
+
 // ===================== ESCUCHAR EL AVISO DE LILI =====================
 // app.js manda "kuxtal-evaluado" cada vez que se da clic en Evaluate
 document.addEventListener("kuxtal-evaluado", (evento) => {
@@ -295,4 +351,20 @@ document.addEventListener("DOMContentLoaded", () => {
       pintarRadiacion({ level: CLASE[opcion], origin: "simulated" });
     }
   });
+
+  // Ambiente de misión: lista, barra de arriba y cambios
+  if (typeof Environment !== "undefined") {   // por si falta el archivo de Jesús
+    llenarAmbientes();
+    pintarAmbiente();
+    document.getElementById("mission-env").addEventListener("change", (evento) => {
+      Environment.set(evento.target.value);   // Jesús lo guarda y avisa a los demás
+      pintarAmbiente();
+      // Lili cambia "a quién avisar" según el ambiente: vuelvo a pintar con los mismos resultados
+      actualizarTodo(ultimosResultados, estadoPorSistema(ultimosResultados));
+    });
+  }
+
+  // Botones de la izquierda y del chequeo
+  document.getElementById("btn-escalate").addEventListener("click", escalarAlerta);
+  document.getElementById("btn-reset-sim").addEventListener("click", borrarHistorial);
 });
