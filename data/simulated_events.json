@@ -1,0 +1,9 @@
+[
+  {
+    "date": "2026-11-12",
+    "type": "SEP",
+    "level": "red",
+    "message": "Solar radiation storm: go to the shielded area now and notify the crew medical officer.",
+    "simulated": true
+  }
+]

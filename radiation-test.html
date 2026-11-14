@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Radiation test - Jesus</title>
+  <style>
+    body { font-family: sans-serif; max-width: 640px; margin: 24px auto; }
+    button { margin-right: 8px; padding: 6px 12px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1>Radiation alert test (DONKI)</h1>
+  <p>Open with Live Server. Press F12 &rarr; Console to see the full result.</p>
+
+  <button id="btn-nasa">Check NASA DONKI</button>
+  <button id="btn-simulate">Simulate solar storm</button>
+  <button id="btn-cache">Clear cache</button>
+
+  <!-- The alert is drawn here -->
+  <div id="radiation-alert">Loading...</div>
+
+  <script src="js/radiation.js"></script>
+  <script>
+    document.getElementById("btn-nasa").addEventListener("click", () => {
+      Radiation.load();
+    });
+    document.getElementById("btn-simulate").addEventListener("click", () => {
+      Radiation.load({ forceSimulated: true });
+    });
+    document.getElementById("btn-cache").addEventListener("click", () => {
+      localStorage.removeItem("kuxtal_radiation");
+      console.log("Cache cleared");
+    });
+  </script>
+</body>
+</html>
