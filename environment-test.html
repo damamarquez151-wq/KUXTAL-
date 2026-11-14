@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Environment selector test - Jesus</title>
+  <style>
+    body { font-family: sans-serif; max-width: 640px; margin: 24px auto; }
+    button { margin-right: 8px; padding: 6px 12px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1>Mission environment test</h1>
+  <p>Open with Live Server. Change the environment and watch the radiation alert.</p>
+
+  <!-- The selector is drawn here -->
+  <div id="environment-selector"></div>
+
+  <button id="btn-simulate">Simulate solar storm</button>
+  <button id="btn-nasa">Check NASA DONKI</button>
+
+  <!-- The radiation alert is drawn here -->
+  <div id="radiation-alert">Loading...</div>
+
+  <script src="js/environment.js"></script>
+  <script src="js/radiation.js"></script>
+  <script>
+    document.getElementById("btn-simulate").addEventListener("click", () => {
+      Radiation.load({ forceSimulated: true });
+    });
+    document.getElementById("btn-nasa").addEventListener("click", () => {
+      Radiation.load();
+    });
+    window.addEventListener("kuxtal:environment-change", e => {
+      console.log("Environment changed to:", e.detail.id, e.detail);
+    });
+  </script>
+</body>
+</html>
