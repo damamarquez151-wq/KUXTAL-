@@ -77,7 +77,9 @@ function nombreDeCampo(campo) {
 
 // 2. Read what the astronaut entered (and check that it makes sense)
 function leerFormulario() {
-  const chequeo = { tripulante: tripulanteActual(), fecha: new Date().toISOString().slice(0, 10) };
+    const ahora = new Date();
+  const chequeo = { tripulante: tripulanteActual(), fecha: ahora.toISOString().slice(0, 10),
+                    hora: ahora.toTimeString().slice(0, 5) };
   const errores = [];
   for (const campo of CAMPOS) {
     const caja = document.getElementById(campo);
