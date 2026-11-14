@@ -1,6 +1,7 @@
-// app.js — Formulario de chequeo y resultados de KUXTAL (Lili)
+// app.js — KUXTAL check-in form and results
+// Note: identifiers stay in Spanish because the whole team's code shares them.
 
-// Los id de las cajas de texto (deben ser iguales en el HTML)
+// Ids of the input fields (must match the HTML)
 const CAMPOS = ["presion_sistolica", "presion_diastolica", "frecuencia_cardiaca",
                 "temperatura", "glucosa", "sueno", "animo"];
 
@@ -8,7 +9,7 @@ const COLORES = { verde: "#2e7d32", amarillo: "#f9a825", rojo: "#c62828" };
 const ETIQUETAS = { verde: "GREEN", amarillo: "YELLOW", rojo: "RED" };
 const CLAVE_GUARDADO = "kuxtal_chequeos";
 
-// TEMPORAL: rangos de la tabla del Avance (Parte 6), hasta que Jaret suba data/indicadores.json
+// FALLBACK: ranges from the team's progress report, used only until data/indicadores.json exists
 const INDICADORES_RESPALDO = [
   { id: "presion_sistolica", nombre: "Systolic blood pressure", unidad: "mmHg", sistema: "corazon",
     verde: [90, 120], amarillo: [90, 139],
@@ -34,7 +35,7 @@ const INDICADORES_RESPALDO = [
     verde: [7, 9], amarillo: [5, 12],
     recomendacion_amarillo: "Keep a regular sleep schedule tonight.",
     recomendacion_rojo: "Reduce workload and rest." },
- { id: "animo", nombre: "Mood", unidad: "/10", sistema: "mente",
+  { id: "animo", nombre: "Mood", unidad: "/10", sistema: "mente",
     verde: [7, 10], amarillo: [5, 6],
     recomendacion_amarillo: "Take a break and talk with your crew.",
     recomendacion_rojo: "Schedule a talk with the psychological support team." }
@@ -42,34 +43,41 @@ const INDICADORES_RESPALDO = [
 
 let indicadores = [];
 
-// 1. Cargar los rangos (de Jaret, o los de respaldo)
+// 1. Load the ranges (from data/indicadores.json, or the fallback)
 async function cargarIndicadores() {
   try {
     const respuesta = await fetch("data/indicadores.json");
-    if (!respuesta.ok) throw new Error("Todavia no existe");
+    if (!respuesta.ok) throw new Error("File not found yet");
     indicadores = await respuesta.json();
-    console.log("Indicadores cargados de data/indicadores.json");
+    console.log("Indicators loaded from data/indicadores.json");
   } catch (error) {
     indicadores = INDICADORES_RESPALDO;
-    console.warn("Usando indicadores de respaldo (temporal)");
+    console.warn("Using fallback indicators (temporary)");
   }
 }
 
-// Valores posibles para un humano; fuera de esto, seguramente es un error de captura
+// Possible values for a human; anything outside is most likely a typing error
 const LIMITES = {
   presion_sistolica: [50, 250], presion_diastolica: [30, 150],
   frecuencia_cardiaca: [20, 250], temperatura: [30, 45],
   glucosa: [20, 600], sueno: [0, 24], animo: [0, 10]
 };
 
-// 2. Leer lo que escribió el astronauta (y revisar que tenga sentido)
-// Qué tripulante está elegido en la lista de Carlos (si no hay lista, "Crew A")
+// Which crew member is selected (if there is no list, "A")
 function tripulanteActual() {
   const selector = document.getElementById("crew-select");
-    return selector && selector.value ? selector.value : "A";
+  return selector && selector.value ? selector.value : "A";
 }
+
+// Readable name of a field, for error messages
+function nombreDeCampo(campo) {
+  const ind = indicadores.find(i => i.id === campo);
+  return ind ? ind.nombre : campo;
+}
+
+// 2. Read what the astronaut entered (and check that it makes sense)
 function leerFormulario() {
-    const chequeo = { tripulante: tripulanteActual(), fecha: new Date().toISOString().slice(0, 10) };
+  const chequeo = { tripulante: tripulanteActual(), fecha: new Date().toISOString().slice(0, 10) };
   const errores = [];
   for (const campo of CAMPOS) {
     const caja = document.getElementById(campo);
@@ -85,7 +93,7 @@ function leerFormulario() {
   return { chequeo: chequeo, errores: errores };
 }
 
-// 3. Guardar y leer chequeos en el navegador (sirve sin internet)
+// 3. Save and read check-ins in the browser (works offline)
 function obtenerChequeos() {
   try {
     return JSON.parse(localStorage.getItem(CLAVE_GUARDADO)) || [];
@@ -100,11 +108,11 @@ function guardarChequeo(chequeo) {
   try {
     localStorage.setItem(CLAVE_GUARDADO, JSON.stringify(lista));
   } catch (e) {
-    console.warn("No se pudo guardar el chequeo", e);
+    console.warn("Could not save the check-in", e);
   }
 }
 
-// 4. Mostrar el semáforo en la página
+// 4. Show the traffic light on the page
 function mostrarResultados(resultados) {
   const contenedor = document.getElementById("resultados");
   if (!contenedor) return;
@@ -127,27 +135,28 @@ function mostrarResultados(resultados) {
   contenedor.innerHTML = html;
 }
 
-// 5. Lo que pasa al dar clic en "Evaluate"
+// 5. What happens when "Evaluate" is clicked
 function evaluar() {
   const lectura = leerFormulario();
   if (lectura.errores.length > 0) {
     document.getElementById("resultados").innerHTML =
-      '<p style="color:#c62828"><strong>Please check these values:</strong> ' + lectura.errores.join(", ") + "</p>";
+      '<p style="color:#c62828"><strong>Please check these values:</strong> '
+      + lectura.errores.map(nombreDeCampo).join(", ") + "</p>";
     return;
   }
   const chequeo = lectura.chequeo;
   const resultados = evaluarChequeo(chequeo, indicadores);
   mostrarResultados(resultados);
   if (resultados.length > 0) guardarChequeo(chequeo);
-    if (typeof actualizarGrafica === "function") actualizarGrafica();
+  if (typeof actualizarGrafica === "function") actualizarGrafica();
 
-  // Aviso para el mapa del cuerpo de Carlos
+  // Notify the rest of the page (body map, cards, status)
   document.dispatchEvent(new CustomEvent("kuxtal-evaluado", {
     detail: { resultados: resultados, porSistema: estadoPorSistema(resultados) }
   }));
 }
 
-// Arranque
+// Start-up
 document.addEventListener("DOMContentLoaded", async () => {
   await cargarIndicadores();
   const boton = document.getElementById("btn-evaluar");

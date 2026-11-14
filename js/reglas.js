@@ -1,15 +1,16 @@
-// reglas.js — Motor de reglas (semáforo) de KUXTAL
-// Decide si cada valor es verde, amarillo o rojo.
+// reglas.js — KUXTAL rules engine (traffic light)
+// Decides whether each health value is green ("verde"), yellow ("amarillo") or red ("rojo").
+// Note: identifiers stay in Spanish because the whole team's code shares them.
 
-// Qué tan grave es cada color (sirve para saber cuál "gana")
+// How serious each color is (used to know which color "wins")
 const GRAVEDAD = { verde: 0, amarillo: 1, rojo: 2 };
 
-// ¿El valor está dentro del rango [mínimo, máximo]?
+// Is the value inside the range [min, max]?
 function dentroDe(valor, rango) {
   return valor >= rango[0] && valor <= rango[1];
 }
 
-// Clasifica UN valor con la regla de UN indicador
+// Classifies ONE value using the rule of ONE indicator
 function clasificar(valor, indicador) {
   if (dentroDe(valor, indicador.verde)) {
     return "verde";
@@ -20,12 +21,12 @@ function clasificar(valor, indicador) {
   }
 }
 
-// Evalúa un chequeo completo y regresa una lista de resultados
+// Evaluates a full check-in and returns a list of results
 function evaluarChequeo(chequeo, indicadores) {
   const resultados = [];
   for (const ind of indicadores) {
     const valor = chequeo[ind.id];
-    if (valor === undefined || valor === null || valor === "") continue; // no se capturó
+    if (valor === undefined || valor === null || valor === "") continue; // not entered
 
     const numero = Number(valor);
     const color = clasificar(numero, ind);
@@ -48,7 +49,7 @@ function evaluarChequeo(chequeo, indicadores) {
   return resultados;
 }
 
-// Para el mapa del cuerpo de Carlos: cada sistema toma el PEOR color de sus indicadores
+// For the body map: each body system takes the WORST color among its indicators
 function estadoPorSistema(resultados) {
   const estado = {};
   for (const r of resultados) {
@@ -57,10 +58,10 @@ function estadoPorSistema(resultados) {
       estado[r.sistema] = r.color;
     }
   }
-  return estado; // ejemplo: { corazon: "amarillo", sueno: "rojo" }
+  return estado; // example: { corazon: "amarillo", sueno: "rojo" }
 }
 
-// A quién avisar, según cuántos rojos y amarillos hay
+// Who to notify, based on how many red and yellow results there are
 function nivelDeAccion(resultados) {
   const rojos = resultados.filter(r => r.color === "rojo").length;
   const amarillos = resultados.filter(r => r.color === "amarillo").length;

@@ -1,21 +1,22 @@
-// graficas.js — Gráficas de tendencia de KUXTAL (Lili)
+// graficas.js — KUXTAL trend charts
+// Note: identifiers stay in Spanish because the whole team's code shares them.
 
 let grafica = null;
 let datosTripulacion = [];
 
-// Datos simulados de Jesús (si ya los subió)
+// Simulated crew data (data/tripulacion.json)
 async function cargarTripulacion() {
   try {
     const respuesta = await fetch("data/tripulacion.json");
-    if (!respuesta.ok) throw new Error("Todavia no existe");
+    if (!respuesta.ok) throw new Error("File not found yet");
     datosTripulacion = await respuesta.json();
   } catch (e) {
     datosTripulacion = [];
-    console.warn("Todavia no hay data/tripulacion.json");
+    console.warn("data/tripulacion.json not found yet");
   }
 }
 
-// Junta los datos de Jesús con los chequeos guardados, ordenados por fecha
+// Joins the simulated data with the saved check-ins, sorted by date
 function historial(tripulante) {
   const todos = datosTripulacion.concat(obtenerChequeos());
   return todos
@@ -23,7 +24,7 @@ function historial(tripulante) {
     .sort((a, b) => a.fecha.localeCompare(b.fecha));
 }
 
-// Dibuja las franjas verde, amarilla y roja detrás de la línea (sin encimarse)
+// Draws the green, yellow and red bands behind the line (without overlapping)
 const franjas = {
   id: "franjas",
   beforeDatasetsDraw(chart, args, opciones) {
@@ -47,14 +48,14 @@ const franjas = {
     const VERDE = "rgba(46, 125, 50, 0.35)";
 
     ctx.save();
-    banda(y.min, bajo, ROJO);                    // rojo de abajo
-    banda(alto, y.max, ROJO);                    // rojo de arriba
-    banda(bajo, ind.verde[0], AMARILLO);         // amarillo de abajo
-    banda(ind.verde[1], alto, AMARILLO);         // amarillo de arriba
-    banda(ind.verde[0], ind.verde[1], VERDE);    // verde
+    banda(y.min, bajo, ROJO);                    // lower red
+    banda(alto, y.max, ROJO);                    // upper red
+    banda(bajo, ind.verde[0], AMARILLO);         // lower yellow
+    banda(ind.verde[1], alto, AMARILLO);         // upper yellow
+    banda(ind.verde[0], ind.verde[1], VERDE);    // green
     ctx.restore();
   }
-};  
+};
 
 function dibujarGrafica(idIndicador) {
   const lienzo = document.getElementById("grafica-tendencia");
@@ -64,7 +65,7 @@ function dibujarGrafica(idIndicador) {
   if (!ind) return;
 
   const datos = historial(tripulanteActual()).filter(c => c[idIndicador] !== undefined);
-    const bajo = Math.min(ind.amarillo[0], ind.verde[0]);
+  const bajo = Math.min(ind.amarillo[0], ind.verde[0]);
   const alto = Math.max(ind.amarillo[1], ind.verde[1]);
   const margen = (alto - bajo) * 0.25;
 
@@ -83,14 +84,14 @@ function dibujarGrafica(idIndicador) {
     },
     options: {
       responsive: true,
-            scales: { y: { suggestedMin: bajo - margen, suggestedMax: alto + margen } },
+      scales: { y: { suggestedMin: bajo - margen, suggestedMax: alto + margen } },
       plugins: { franjas: { indicador: ind } }
     },
     plugins: [franjas]
   });
 }
 
-// La lista para elegir qué indicador ver
+// The list to choose which indicator to see
 function llenarSelector() {
   const selector = document.getElementById("indicador-grafica");
   if (!selector) return;
