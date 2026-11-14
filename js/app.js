@@ -64,8 +64,13 @@ const LIMITES = {
 };
 
 // 2. Leer lo que escribió el astronauta (y revisar que tenga sentido)
+// Qué tripulante está elegido en la lista de Carlos (si no hay lista, "Crew A")
+function tripulanteActual() {
+  const selector = document.getElementById("crew-select");
+  return selector && selector.value ? selector.value : "Crew A";
+}
 function leerFormulario() {
-  const chequeo = { tripulante: "Crew A", fecha: new Date().toISOString().slice(0, 10) };
+    const chequeo = { tripulante: tripulanteActual(), fecha: new Date().toISOString().slice(0, 10) };
   const errores = [];
   for (const campo of CAMPOS) {
     const caja = document.getElementById(campo);
@@ -135,6 +140,7 @@ function evaluar() {
   const resultados = evaluarChequeo(chequeo, indicadores);
   mostrarResultados(resultados);
   if (resultados.length > 0) guardarChequeo(chequeo);
+    if (typeof actualizarGrafica === "function") actualizarGrafica();
 
   // Aviso para el mapa del cuerpo de Carlos
   document.dispatchEvent(new CustomEvent("kuxtal-evaluado", {
@@ -147,4 +153,5 @@ document.addEventListener("DOMContentLoaded", async () => {
   await cargarIndicadores();
   const boton = document.getElementById("btn-evaluar");
   if (boton) boton.addEventListener("click", evaluar);
+  if (typeof iniciarGraficas === "function") await iniciarGraficas();
 });
