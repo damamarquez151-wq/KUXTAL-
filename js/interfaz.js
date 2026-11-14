@@ -114,6 +114,20 @@ function pintarEstadoGeneral(resultados) {
   document.getElementById("btn-escalate").classList.toggle("hidden", color !== "rojo");
 }
 
+// Por qué importa cada zona: el riesgo de la NASA (de Jaret), sin repetir
+function riesgosNasa(deLaZona) {
+  let html = "";
+  const yaPuestos = [];
+  for (const r of deLaZona) {
+    if (!r.url_nasa || yaPuestos.includes(r.url_nasa)) continue;   // sin link o repetido
+    yaPuestos.push(r.url_nasa);
+    html += '<div class="detail-row"><p>Why it matters: ' + r.por_que
+         + ' <a href="' + r.url_nasa + '" target="_blank" rel="noopener">NASA: '
+         + r.riesgo_nasa + " ↗</a></p></div>";
+  }
+  return html;
+}
+
 // 4. La tarjeta de detalle, abajo del cuerpo (al dar clic en una zona)
 function mostrarDetalle(zona) {
   zonaElegida = zona;
@@ -144,6 +158,7 @@ function mostrarDetalle(zona) {
            + '<p class="detail-rec"><b>Action:</b> ' + r.recomendacion + "</p>"
            + "</div>";
     }
+    html += riesgosNasa(deLaZona);
   }
   document.getElementById("detail-body").innerHTML = html;
 
@@ -204,6 +219,40 @@ function esperarDatos(intentos) {
   }
 }
 
+// ===================== RADIACIÓN (datos de Jesús, NASA DONKI) =====================
+// Textos del letrero de arriba, según el nivel que manda radiation.js
+const TEXTO_DONKI = {
+  green: ["NO ACTIVE SOLAR EVENTS — NOMINAL SPACE WEATHER", "Solar Flux: Nominal • Geomagnetic: Quiet"],
+  yellow: ["ELEVATED SOLAR ACTIVITY — AVOID SPACEWALKS", "Keep your dosimeter on"],
+  red: ["SOLAR RADIATION STORM — GO TO THE SHIELDED AREA", "Notify the crew medical officer"]
+};
+// De dónde vienen los datos: en vivo, guardados (sin internet) o simulados
+const ORIGEN_DONKI = { nasa: "LIVE NASA DATA", cache: "OFFLINE — LAST NASA DATA", simulated: "SIMULATED DATA" };
+
+// Pinta el letrero de arriba y el borde alrededor del cuerpo
+function pintarRadiacion(resultado) {
+  const nivel = resultado.level;   // "green", "yellow" o "red"
+
+  const letrero = document.getElementById("donki-banner");
+  letrero.classList.remove("status-green", "status-yellow", "status-red");
+  letrero.classList.add("status-" + nivel);
+  document.getElementById("donki-dot").className = "dot dot-" + nivel;
+  document.getElementById("donki-title").textContent = TEXTO_DONKI[nivel][0];
+  document.getElementById("donki-sub").textContent = TEXTO_DONKI[nivel][1];
+  document.getElementById("donki-source").textContent = ORIGEN_DONKI[resultado.origin] || "SIMULATED DATA";
+
+  // El borde del cuerpo: amarillo o rojo solo si hay alerta
+  const borde = document.getElementById("radiation-halo");
+  borde.classList.remove("rad-yellow", "rad-red");
+  if (nivel !== "green") borde.classList.add("rad-" + nivel);
+}
+
+// Pide los datos a radiation.js (de Jesús) y los pinta
+function cargarRadiacion() {
+  if (typeof Radiation === "undefined") return;   // por si falta el archivo de Jesús
+  Radiation.get().then(pintarRadiacion);
+}
+
 // ===================== ESCUCHAR EL AVISO DE LILI =====================
 // app.js manda "kuxtal-evaluado" cada vez que se da clic en Evaluate
 document.addEventListener("kuxtal-evaluado", (evento) => {
@@ -233,4 +282,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Al abrir la página, pinto el último día del tripulante A
   esperarDatos(0);
+
+  // Radiación: la pido al abrir la página
+  cargarRadiacion();
+
+  // Para el demo: la lista "Space weather" del chequeo simula una tormenta
+  document.getElementById("in-donki").addEventListener("change", (evento) => {
+    const opcion = evento.target.value;   // "verde", "amarillo" o "rojo"
+    if (opcion === "verde") {
+      cargarRadiacion();                  // regreso a los datos reales
+    } else {
+      pintarRadiacion({ level: CLASE[opcion], origin: "simulated" });
+    }
+  });
 });
