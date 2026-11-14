@@ -64,12 +64,17 @@ function estadoPorSistema(resultados) {
   return estado; // example: { corazon: "amarillo", sueno: "rojo" }
 }
 
-// Who to notify, based on how many red and yellow results there are
+// Who to notify, based on how many red and yellow results there are.
+// With 2 or more reds, the advice depends on the mission environment (environment.js),
+// because on Mars the ground team can take up to 44 minutes to answer.
 function nivelDeAccion(resultados) {
   const rojos = resultados.filter(r => r.color === "rojo").length;
   const amarillos = resultados.filter(r => r.color === "amarillo").length;
 
-  if (rojos >= 2) return "Contact flight surgeons on Earth";
+  if (rojos >= 2) {
+    if (typeof Environment !== "undefined") return Environment.current().escalation;
+    return "Contact flight surgeons on Earth";
+  }
   if (rojos === 1) return "Notify the crew medical officer";
   if (amarillos > 0) return "Self-care: follow the recommendations and measure again";
   return "No action needed";
