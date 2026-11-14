@@ -130,9 +130,10 @@ function mostrarResultados(resultados) {
          + "<strong>" + r.nombre + ":</strong> " + r.valor + " " + r.unidad
          + ' — <span style="color:' + COLORES[r.color] + '; font-weight:bold">' + ETIQUETAS[r.color] + "</span>"
          + "<br>" + r.recomendacion
-         + (r.url_nasa
+         + (r.url_nasa && r.color !== "verde"
              ? '<br><small>Why it matters: ' + (r.por_que || "") + ' <a href="' + r.url_nasa
-               + '" target="_blank" rel="noopener">NASA HRP: ' + r.riesgo_nasa + "</a></small>"
+               + '" target="_blank" rel="noopener" style="color:#64b5f6; text-decoration:underline">NASA HRP: '
+               + r.riesgo_nasa + "</a></small>"
              : "")
          + "</li>";
   }
