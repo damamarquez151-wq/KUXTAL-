@@ -1,21 +1,6 @@
 /*
  * KUXTAL - Radiation alert using NASA space weather data (DONKI)
- * Author: Jesus (Data and NASA integration)
- *
- * Sources:
- *   - DONKI, NASA Community Coordinated Modeling Center (CCMC)
- *     https://ccmc.gsfc.nasa.gov/DONKI/
- *   - Canadian Space Agency (CSA), "Monitoring radiation for astronaut health"
- *     https://www.asc-csa.gc.ca/eng/news/articles/2026/2026-02-26-monitoring-radiation-astronaut-health.asp
- *   Both links are shown under the alert.
- *
- * What it does:
- *   1. Requests the solar events of the last few days from DONKI:
- *      - SEP: solar energetic particles (radiation)    -> RED
- *      - FLR: solar flares of class M or X             -> YELLOW
- *      - GST: geomagnetic storms with Kp 5 or higher   -> YELLOW
- *   2. Decides the overall level: green, yellow or red.
- *   3. Shows the alert inside <div id="radiation-alert"></div>.
+ * (Data and NASA integration)
  *
  * Offline (requirement RNF-01):
  *   - Uses the last response saved in localStorage, or
@@ -31,7 +16,8 @@
  * the radiation advice for the chosen environment (ISS, Moon or Mars).
  *
  * For the demo (force the simulated storm even if there is none today):
- *   Radiation.load({ forceSimulated: true });
+ *   - open the page as index.html?demo=storm, or
+ *   - call Radiation.load({ forceSimulated: true });
  *
  * Everything lives inside the "Radiation" object so it does not
  * clash with the functions written by other team members.
@@ -324,9 +310,20 @@ const Radiation = (function () {
     return result;
   }
 
+  // Demo mode: open the page with ?demo=storm in the address
+  // (for example index.html?demo=storm) to show the simulated red storm.
+  // It is always labeled "Simulated data". Without it, the app works normally.
+  function demoModeOn() {
+    try {
+      return new URLSearchParams(window.location.search).get("demo") === "storm";
+    } catch (e) {
+      return false;
+    }
+  }
+
   // Run by itself when the page opens
   if (typeof document !== "undefined") {
-    document.addEventListener("DOMContentLoaded", () => load());
+    document.addEventListener("DOMContentLoaded", () => load({ forceSimulated: demoModeOn() }));
     // Redraw the alert when the mission environment changes
     window.addEventListener("kuxtal:environment-change", () => {
       if (lastResult) show(lastResult);
