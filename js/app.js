@@ -56,16 +56,29 @@ async function cargarIndicadores() {
   }
 }
 
-// 2. Leer lo que escribió el astronauta
+// Valores posibles para un humano; fuera de esto, seguramente es un error de captura
+const LIMITES = {
+  presion_sistolica: [50, 250], presion_diastolica: [30, 150],
+  frecuencia_cardiaca: [20, 250], temperatura: [30, 45],
+  glucosa: [20, 600], sueno: [0, 24], animo: [1, 5]
+};
+
+// 2. Leer lo que escribió el astronauta (y revisar que tenga sentido)
 function leerFormulario() {
   const chequeo = { tripulante: "Crew A", fecha: new Date().toISOString().slice(0, 10) };
+  const errores = [];
   for (const campo of CAMPOS) {
     const caja = document.getElementById(campo);
-    if (caja && caja.value !== "") {
-      chequeo[campo] = Number(caja.value);
+    if (!caja || caja.value === "") continue;
+    const numero = Number(caja.value);
+    const limite = LIMITES[campo];
+    if (!Number.isFinite(numero) || numero < limite[0] || numero > limite[1]) {
+      errores.push(campo);
+    } else {
+      chequeo[campo] = numero;
     }
   }
-  return chequeo;
+  return { chequeo: chequeo, errores: errores };
 }
 
 // 3. Guardar y leer chequeos en el navegador (sirve sin internet)
@@ -112,7 +125,13 @@ function mostrarResultados(resultados) {
 
 // 5. Lo que pasa al dar clic en "Evaluate"
 function evaluar() {
-  const chequeo = leerFormulario();
+  const lectura = leerFormulario();
+  if (lectura.errores.length > 0) {
+    document.getElementById("resultados").innerHTML =
+      '<p style="color:#c62828"><strong>Please check these values:</strong> ' + lectura.errores.join(", ") + "</p>";
+    return;
+  }
+  const chequeo = lectura.chequeo;
   const resultados = evaluarChequeo(chequeo, indicadores);
   mostrarResultados(resultados);
   if (resultados.length > 0) guardarChequeo(chequeo);
