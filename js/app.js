@@ -34,8 +34,8 @@ const INDICADORES_RESPALDO = [
     verde: [7, 9], amarillo: [5, 12],
     recomendacion_amarillo: "Keep a regular sleep schedule tonight.",
     recomendacion_rojo: "Reduce workload and rest." },
-  { id: "animo", nombre: "Mood", unidad: "/5", sistema: "mente",
-    verde: [4, 5], amarillo: [2, 3],
+ { id: "animo", nombre: "Mood", unidad: "/10", sistema: "mente",
+    verde: [7, 10], amarillo: [5, 6],
     recomendacion_amarillo: "Take a break and talk with your crew.",
     recomendacion_rojo: "Schedule a talk with the psychological support team." }
 ];
@@ -59,7 +59,7 @@ async function cargarIndicadores() {
 const LIMITES = {
   presion_sistolica: [50, 250], presion_diastolica: [30, 150],
   frecuencia_cardiaca: [20, 250], temperatura: [30, 45],
-  glucosa: [20, 600], sueno: [0, 24], animo: [1, 5]
+  glucosa: [20, 600], sueno: [0, 24], animo: [0, 10]
 };
 
 // 2. Leer lo que escribió el astronauta (y revisar que tenga sentido)
