@@ -2,8 +2,12 @@
  * KUXTAL - Radiation alert using NASA space weather data (DONKI)
  * Author: Jesus (Data and NASA integration)
  *
- * Source: DONKI, NASA Community Coordinated Modeling Center (CCMC)
- *         https://ccmc.gsfc.nasa.gov/DONKI/
+ * Sources:
+ *   - DONKI, NASA Community Coordinated Modeling Center (CCMC)
+ *     https://ccmc.gsfc.nasa.gov/DONKI/
+ *   - Canadian Space Agency (CSA), "Monitoring radiation for astronaut health"
+ *     https://www.asc-csa.gc.ca/eng/news/articles/2026/2026-02-26-monitoring-radiation-astronaut-health.asp
+ *   Both links are shown under the alert.
  *
  * What it does:
  *   1. Requests the solar events of the last few days from DONKI:
@@ -22,6 +26,9 @@
  *   <div id="radiation-alert"></div>
  *   <script src="js/radiation.js"></script>
  *   It runs by itself when the page loads.
+ *
+ * If js/environment.js is also on the page, yellow and red alerts add
+ * the radiation advice for the chosen environment (ISS, Moon or Mars).
  *
  * For the demo (force the simulated storm even if there is none today):
  *   Radiation.load({ forceSimulated: true });
@@ -45,6 +52,14 @@ const Radiation = (function () {
   const CACHE_KEY = "kuxtal_radiation";
   const SIMULATED_PATH = "data/simulated_events.json";
   const CONTAINER_ID = "radiation-alert";
+
+  // Official resources shown under the alert (NASA + partner agency CSA)
+  const RESOURCES = [
+    { name: "NASA DONKI (space weather data)",
+      url: "https://ccmc.gsfc.nasa.gov/DONKI/" },
+    { name: "CSA: Monitoring radiation for astronaut health",
+      url: "https://www.asc-csa.gc.ca/eng/news/articles/2026/2026-02-26-monitoring-radiation-astronaut-health.asp" }
+  ];
 
   const MESSAGES = {
     red: "Solar radiation storm: go to the shielded area now and notify the crew medical officer.",
@@ -248,7 +263,15 @@ const Radiation = (function () {
   // 9. Show it on the page
   // ------------------------------------------------------------
   const COLORS = { green: "#2e9e5b", yellow: "#e0a800", red: "#d63b3b" };
+  // Links take the page text color, so they read well on light or dark backgrounds
+  const LINK_STYLE = "color:inherit;text-decoration:underline";
   const TITLES = { green: "Radiation: normal", yellow: "Radiation: caution", red: "Radiation alert" };
+
+  function resourcesHtml() {
+    const links = RESOURCES.map(r =>
+      '<a href="' + r.url + '" target="_blank" rel="noopener" style="' + LINK_STYLE + '">' + r.name + "</a>");
+    return '<small style="display:block;margin-top:4px">Learn more: ' + links.join(" · ") + "</small>";
+  }
 
   function originText(result) {
     const time = new Date(result.updated).toLocaleString("en-US");
@@ -257,7 +280,18 @@ const Radiation = (function () {
     return "Simulated data (offline demo)";
   }
 
+  // The last result shown, so it can be redrawn when the environment changes
+  let lastResult = null;
+
+  // If environment.js is on the page, add its radiation advice
+  function environmentNote() {
+    if (typeof Environment === "undefined") return "";
+    const env = Environment.current();
+    return '<p style="margin:4px 0"><em>' + env.shortName + ": " + env.radiation + "</em></p>";
+  }
+
   function show(result) {
+    lastResult = result;
     if (typeof document === "undefined") return;
     const box = document.getElementById(CONTAINER_ID);
     if (!box) return;
@@ -267,7 +301,7 @@ const Radiation = (function () {
     for (const e of result.events.slice(0, 5)) {
       const date = (e.date || "").replace("T", " ").replace("Z", " UTC");
       const name = e.link
-        ? '<a href="' + e.link + '" target="_blank" rel="noopener">' + e.detail + "</a>"
+        ? '<a href="' + e.link + '" target="_blank" rel="noopener" style="' + LINK_STYLE + '">' + e.detail + "</a>"
         : e.detail;
       items += "<li>" + date + " · " + name + "</li>";
     }
@@ -276,8 +310,10 @@ const Radiation = (function () {
       '<div style="border-left:6px solid ' + color + ';padding:8px 12px;margin:8px 0;">' +
         '<strong style="color:' + color + '">' + TITLES[result.level] + "</strong>" +
         "<p style=\"margin:4px 0\">" + result.message + "</p>" +
+        (result.level === "green" ? "" : environmentNote()) +
         (items ? "<ul style=\"margin:4px 0;padding-left:18px\">" + items + "</ul>" : "") +
         '<small style="opacity:.7">' + originText(result) + "</small>" +
+        resourcesHtml() +
       "</div>";
   }
 
@@ -291,6 +327,10 @@ const Radiation = (function () {
   // Run by itself when the page opens
   if (typeof document !== "undefined") {
     document.addEventListener("DOMContentLoaded", () => load());
+    // Redraw the alert when the mission environment changes
+    window.addEventListener("kuxtal:environment-change", () => {
+      if (lastResult) show(lastResult);
+    });
   }
 
   // What the other files can use
@@ -298,6 +338,7 @@ const Radiation = (function () {
     load: load,              // gets the data and shows it
     get: get,                // only gets the data (returns the result)
     overallLevel: overallLevel,
+    RESOURCES: RESOURCES,
     _internal: { sepEvents, flareEvents, stormEvents, buildResult }
   };
 })();
