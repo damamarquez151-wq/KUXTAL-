@@ -21,7 +21,7 @@ function historial(tripulante) {
   const todos = datosTripulacion.concat(obtenerChequeos());
   return todos
     .filter(c => c.tripulante === tripulante)
-    .sort((a, b) => a.fecha.localeCompare(b.fecha));
+    .sort((a, b) => (a.fecha + (a.hora || "")).localeCompare(b.fecha + (b.hora || "")));
 }
 
 // Draws the green, yellow and red bands behind the line (without overlapping)
@@ -73,7 +73,7 @@ function dibujarGrafica(idIndicador) {
   grafica = new Chart(lienzo, {
     type: "line",
     data: {
-      labels: datos.map(c => c.fecha),
+        labels: datos.map(c => c.hora ? c.fecha.slice(5) + " " + c.hora : c.fecha.slice(5)),
       datasets: [{
         label: ind.nombre + " (" + ind.unidad + ")",
         data: datos.map(c => c[idIndicador]),
