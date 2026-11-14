@@ -1,0 +1,93 @@
+[
+  {
+    "id": "presion_sistolica",
+    "nombre": "Systolic Blood Pressure",
+    "unidad": "mmHg",
+    "sistema": "corazon",
+    "categoria": "cardiovascular",
+    "verde": [90, 120],
+    "amarillo": [90, 139],
+    "rojo": "<90 or >=140",
+    "recomendacion_amarillo": "Rest for 10 minutes and re-measure. Drink water.",
+    "recomendacion_rojo": "Notify the Flight Medical Officer immediately.",
+    "fuente": "NASA-STD-3001 Vol. 1; NASA HRP — The Human Body in Space"
+  },
+  {
+    "id": "presion_diastolica",
+    "nombre": "Diastolic Blood Pressure",
+    "unidad": "mmHg",
+    "sistema": "corazon",
+    "categoria": "cardiovascular",
+    "verde": [60, 80],
+    "amarillo": [60, 89],
+    "rojo": "<60 or >=90",
+    "recomendacion_amarillo": "Rest for 10 minutes and re-measure. Drink water.",
+    "recomendacion_rojo": "Notify the Flight Medical Officer immediately.",
+    "fuente": "NASA-STD-3001 Vol. 1; NASA HRP — The Human Body in Space"
+  },
+  {
+    "id": "frecuencia_cardiaca",
+    "nombre": "Heart Rate",
+    "unidad": "bpm",
+    "sistema": "corazon",
+    "categoria": "cardiovascular",
+    "verde": [60, 100],
+    "amarillo": [50, 120],
+    "rojo": "<50 or >120",
+    "recomendacion_amarillo": "Sit down, relax, and check again in 15 minutes.",
+    "recomendacion_rojo": "Notify the Flight Medical Officer. Assess additional symptoms.",
+    "fuente": "NASA-STD-3001 Vol. 1; NASA HRP — The Human Body in Space"
+  },
+  {
+    "id": "temperatura",
+    "nombre": "Body Temperature",
+    "unidad": "°C",
+    "sistema": "inmune",
+    "categoria": "regulation",
+    "verde": [36.1, 37.2],
+    "amarillo": [35.0, 38.0],
+    "rojo": "<35.0 or >38.0",
+    "recomendacion_amarillo": "Check cabin environment, hydrate, and recheck in 30 minutes.",
+    "recomendacion_rojo": "Contact Flight Surgeon on Earth. May indicate infection or environmental issue.",
+    "fuente": "NASA-STD-3001 Vol. 1; NASA HRP — The Human Body in Space"
+  },
+  {
+    "id": "glucosa",
+    "nombre": "Blood Glucose",
+    "unidad": "mg/dL",
+    "sistema": "nutricion",
+    "categoria": "metabolism",
+    "verde": [70, 110],
+    "amarillo": [70, 140],
+    "rojo": "<70 or >140",
+    "recomendacion_amarillo": "Check hydration and nutrition. Re-measure in 1 hour.",
+    "recomendacion_rojo": "Eat something if low. Notify Earth if high persists.",
+    "fuente": "NASA-STD-3001 Vol. 1; NASA HRP — The Human Body in Space"
+  },
+  {
+    "id": "sueno",
+    "nombre": "Hours of Sleep",
+    "unidad": "hours",
+    "sistema": "sueno",
+    "categoria": "circadian_rhythm",
+    "verde": [7, 9],
+    "amarillo": [5, 12],
+    "rojo": "<5 or >12",
+    "recomendacion_amarillo": "Prioritize rest. Reduce noise and light before sleep.",
+    "recomendacion_rojo": "Adjust schedule immediately. Request psychological support if needed.",
+    "fuente": "NASA-STD-3001 Vol. 1; NASA HRP — The Human Body in Space"
+  },
+  {
+    "id": "animo",
+    "nombre": "Mood Score",
+    "unidad": "/10",
+    "sistema": "mente",
+    "categoria": "mental_health",
+    "verde": [7, 10],
+    "amarillo": [5, 6],
+    "rojo": "0 to 4",
+    "recomendacion_amarillo": "Talk to a crewmate, take a break, write in your journal.",
+    "recomendacion_rojo": "Contact psychological support on Earth immediately.",
+    "fuente": "NASA-STD-3001 Vol. 1; NASA HRP — The Human Body in Space"
+  }
+]
