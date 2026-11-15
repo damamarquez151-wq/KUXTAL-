@@ -25,7 +25,7 @@ Developed for the **NASA Space Apps Challenge 2026 (Carmen City)**, KUXTAL integ
 ---
 
 ##  Live Demo & How to Run
-* **Live site:** [https://damamarquez151-wq.github.io/KUXTAL-/](https://damamarquez151-wq.github.io/KUXTAL-/)
+* **Live site:**[ [https://damamarquez151-wq.github.io/KUXTAL-/](https://damamarquez151-wq.github.io/KUXTAL-/)](https://damamarquez151-wq.github.io/KUXTAL-/).
 * **Run locally:** Open the folder in VS Code and start `index.html` with the **Live Server** extension. *Do not open `index.html` by double-clicking it directly; modern browsers block reading local data files via the file protocol.*
 
 ---
