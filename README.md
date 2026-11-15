@@ -24,14 +24,29 @@ Developed for the **NASA Space Apps Challenge 2026 (Carmen City)**, KUXTAL integ
 
 ---
 
-## Tech Stack & Architecture
-* **Frontend:** HTML5, CSS3, JavaScript (Modular architecture designed for mission tablets and displays).
-* **Visualization & Graphics:** Chart.js (local bundle for offline use), custom SVG interactive body mapping.
-* **Data Sources & Standards:** 
-  * NASA Human Research Roadmap (5 Hazards)
-  * NASA-STD-3001 Vol. 1 standards
-  * NASA DONKI API (Space Weather)
-  * CSA Radiation Data Guidelines
+##  Live Demo & How to Run
+* **Live site:** [https://damamarquez151-wq.github.io/KUXTAL-/](https://damamarquez151-wq.github.io/KUXTAL-/)
+* **Run locally:** Open the folder in VS Code and start `index.html` with the **Live Server** extension. *Do not open `index.html` by double-clicking it directly; modern browsers block reading local data files via the file protocol.*
+
+---
+
+##  Data Notice
+All crew health data in this prototype is **simulated** for demonstration purposes. No real medical data is used. KUXTAL is a software prototype, not a medical device.
+
+---
+
+## NASA & Space Agency Resources Used
+* **NASA Human Research Program:** *5 Hazards of Human Spaceflight* and *Risks of Human Spaceflight* (each indicator links to its HRP risk page).
+* **NASA-STD-3001 Vol. 1** (Crew Health), OCHMO-STD-100.1A, NASA Behavioral Health and Performance.
+* **NASA DONKI API** (space weather events).
+* **CSA:** *Monitoring Radiation for Astronaut Health* (consulted resource).
+
+---
+
+##  Use of AI Tools
+* **Claude (Anthropic):** Helped write and review the rules engine, check-in form, validation, and trend charts (`reglas.js`, `app.js`, `graficas.js`), and assisted in project planning.
+* **[Tool used by Jaret]:** Helped research reference ranges and sources (reviewed and verified by the team).
+* **[Team additions]:** Integrated development and documentation support.
 
 ---
 
