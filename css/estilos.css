@@ -287,3 +287,6 @@ button:focus-visible, select:focus-visible, input:focus-visible, .zones-list li:
 #radiation-alert > div { margin: 0 !important; }
 #radiation-alert small { color: var(--muted); opacity: 1 !important; }
 #radiation-alert a { color: var(--cyan) !important; }
+/* ===== Jesus's environment info (js/environment.js) in the left panel ===== */
+#environment-info ul { margin: 0 !important; padding-left: 1rem !important; font-size: 0.74rem; color: var(--text); }
+#environment-info li { margin-bottom: 0.2rem; }

@@ -63,9 +63,9 @@
       <label class="hud-field">
         <span class="crew-kicker">MISSION ENVIRONMENT</span>
         <select id="mission-env" class="hud-select" aria-label="Mission Environment">
-          <option value="lunar" selected>Lunar Base</option>
-          <option value="leo">Low Earth Orbit (ISS)</option>
-          <option value="mars">Mars Transit</option>
+                    <option value="moon" selected>Lunar base</option>
+          <option value="iss">International Space Station</option>
+          <option value="mars">Mars mission</option>
         </select>
       </label>
       <button id="btn-open-checkin" class="btn-checkin" type="button">+ &lt; 2 MIN CHECK-IN</button>
@@ -108,6 +108,11 @@
       <div class="protocol-box">
         <span class="protocol-tag">NOTIFICATION PROTOCOL</span>
         <p id="notification-protocol">No notification required; log saved in local storage.</p>
+      </div>
+            <div class="protocol-box">
+        <span class="protocol-tag">MISSION ENVIRONMENT</span>
+        <!-- Jesús: environment.js escribe aquí el retraso, a quién avisar y la radiación -->
+        <div id="environment-info"></div>
       </div>
       <button id="btn-escalate" class="btn-escalate hidden" type="button">ESCALATE ALERT TO MISSION CONTROL</button>
       <p id="escalate-msg" class="escalate-msg hidden" role="status"></p>
@@ -315,15 +320,14 @@
       <div id="resultados" aria-live="polite"></div>
     </div>
   </div>
-  <!-- Carlos: pantalla y mapa del cuerpo -->
+   <!-- Carlos: pantalla y mapa del cuerpo -->
   <script src="js/interfaz.js"></script>
+  <!-- Jesús: ambientes de misión (ISS, Luna, Marte) y alerta de radiación (NASA DONKI) -->
+  <script src="js/environment.js"></script>
+  <script src="js/radiation.js"></script>
   <!-- Lili: semáforo, formulario y gráficas -->
   <script src="js/reglas.js"></script>
   <script src="js/app.js"></script>
   <script src="js/graficas.js"></script>
-      <!-- Jesús: ambientes de misión (ISS, Luna, Marte) -->
-  <script src="js/environment.js"></script>
-  <!-- Jesús: alerta de radiación (NASA DONKI) -->
-  <script src="js/radiation.js"></script>
 </body>
 </html>

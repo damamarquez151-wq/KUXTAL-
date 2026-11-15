@@ -208,7 +208,8 @@ function mostrarUltimoDia() {
   const ultimo = dias[dias.length - 1];
   const resultados = evaluarChequeo(ultimo, indicadores);   // de Lili (reglas.js)
   actualizarTodo(resultados, estadoPorSistema(resultados));
-  document.getElementById("eval-source").textContent = "Last check-in: " + ultimo.fecha;
+  document.getElementById("eval-source").textContent =
+    "Last check-in: " + ultimo.fecha + (ultimo.hora ? " " + ultimo.hora : "");
 }
 
 // Los datos de Jesús tardan un poquito en cargar: reviso cada 0.2 s (máximo 6 s)
